@@ -1,34 +1,58 @@
+#NOT REEADY YET....COMMMENT LINES OUT AND TRY AT YOUR OWN RISK.
+#PROGRAMS MAY EVALUATE TO 0%
+#CODE WRITTEN MIGHT GET ERASED
+
+#INSTALL PYTHON ON YOUR SYSTEM
+#INSTALL SELENIUM WEBDRIVER ON YOUR SYSTEM
+#COPY THE PROGRAM AND SAVE IT IN A TEXT FILE WITH EXTENSION .py
+#       FOR EXAMPLE : scilabprintreport.py
+#OPEN TERMINAL/COMMAND PROMPT
+#CHANGE YOUR DIRECTORY TO WHERE YOU HAVE SAVED THE TEXT FILE
+#RUN THE PROGRAM BY TYPING - python scilabprintreport.py
+
+#############################################################################################################################################
+#IMPORTS
+
+import time
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-import time
 from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
-print("Enter your mathslab version > 1/2/3/4")
-a=int(input())
 
-#if a==1 :
-#    driver.get("http://ulc.srmuniv.ac.in/mathslab1/")
-#elif a==2 :
-#    driver.get("http://ulc.srmuniv.ac.in/mathslab2/")
-#elif a==3 :
-#    driver.get("http://ulc.srmuniv.ac.in/mathslab3/")
-#elif a==4 :
-#    driver.get("http://ulc.srmuniv.ac.in/mathslab4/")
-#else :
-#    print("no match found")
-a=str(a)
-driver.get("http://ulc.srmuniv.ac.in/mathslab"+a)
+#############################################################################################################################################
+#INPUT PAGE DETAILS
 
-print("Enter your Registration Number > ")
+print("Enter your branch\n1>CSE\n2>IT\n3>Software\n> ")
+branch = int(input())
+print("\n1>OOPS\n2>DS\n> ")
+lab = int(input())
+
+#############################################################################################################################################
+#OPEN REQUESTED PAGE
+
+if branch == 1 and lab == 1 :
+    driver.get("http://ulc.srmuniv.ac.in/elabcsecpp/") #CSE OOPS
+elif branch == 1 and lab == 2 :
+    driver.get("http://ulc.srmuniv.ac.in/elabcseds/") #CSE DS
+elif branch == 2 and (lab == 1 or lab == 2) :
+    driver.get("http://ulc.srmuniv.ac.in/elabitcppds/") #IT OOPS/DS
+elif branch == 3 and (lab == 1 or lab == 2) :
+    driver.get("http://ulc.srmuniv.ac.in/elabswecppds/") #SOFT OOPS/DS
+
+#############################################################################################################################################
+#INPUT LOGIN DETAILS
+
+print("Enter your Registration Number\n> ")
 RegNo = input()
-
-print("Enter your Password >")
+print("\nEnter your Password\n>")
 Pass = input()
 
+#############################################################################################################################################
+#EXECUTE LOGIN PROCESS
 
 elemId = driver.find_element_by_id('username')
 elemId.send_keys(RegNo)
@@ -36,59 +60,163 @@ elemPass = driver.find_element_by_id('password')
 elemPass.send_keys(Pass)
 driver.find_element_by_id('button').click()
 
-#element = wait.until(EC.presence_of_element_located((By.ID, 'someid')))
-#wait = WebDriverWait(driver, 5)
-time.sleep(2)
-driver.find_element_by_css_selector("div.card-content.white-text").click()
-#driver.find_element_by_class_name('card-action').click()
-#for i in range(0,100) :
-#Quest=driver.find_elements_by_class_name('rgraph_tooltip')
-#for i in Quest :
-#print(Quest)
-#time.sleep(5)
-wait = WebDriverWait(driver, 10)
-wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
-time.sleep(1)
-#if a==1 :
-for v in range(0,100):
-        v=str(v)
-        driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/mathslab/mathslab.code.php?id=1&value='+v)
-        wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
-        time.sleep(1)
-        driver.find_element_by_id("evaluateButton").click()
-        #driver.find_element_by_id("evaluateButton").click()
-        #wait.until(EC.presence_of_element_located((By.ID, 'printMsg'))
-        time.sleep(1)
-        #driver.find_element_by_id("printMsg").click()
-        t=driver.find_element_by_id("resultMsg")
-        driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
-        time.sleep(1)
+#############################################################################################################################################
+#CSE OOPS
+if branch == 1 and lab == 1 :
+
+    time.sleep(3)
+
+    driver.find_element_by_class_name('card-action').click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabcsecpp/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
 
 
-#elif a==2 :
-#    for v in range(0,100):
-#        v=str(v)
-#        driver.get('http://ulc.srmuniv.ac.in/mathslab2/login/student/code/mathslab/mathslab.code.php?id=1&value='+v)
-#elif a==3 :
-#    for v in range(0,100):
-#        v=str(v)
-#        driver.get('http://ulc.srmuniv.ac.in/mathslab3/login/student/code/mathslab/mathslab.code.php?id=1&value='+v)
-#elif a==4 :
-#    for v in range(0,100):
-#        v=str(v)
-#        driver.get('http://ulc.srmuniv.ac.in/mathslab4/login/student/code/mathslab/mathslab.code.php?id=1&value='+v)
+#############################################################################################################################################
+#CSE DS
+elif branch == 1 and lab == 2 :
+
+    time.sleep(3)
+
+    driver.find_element_by_class_name('card-action').click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabcseds/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
+
+#############################################################################################################################################
+#IT DS
+elif branch == 2 and lab == 2 :
+
+    time.sleep(3)
+
+    driver.find_element_by_xpath("//div[@class = 'row']//div[@class = 'col s12 m6 l4 course-data']//div[@class = 'card-content white-text']//span[text()='DATA-STRUCTURE']").click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabitcppds/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
+
+#############################################################################################################################################
+#IT OOPS
+
+elif branch == 2 and lab == 1 :
+
+    time.sleep(3)
+
+    driver.find_element_by_xpath("//div[@class = 'row']//div[@class = 'col s12 m6 l4 course-data']//div[@class = 'card-content white-text']//span[text()='CPP']").click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabitcppds/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
+
+#############################################################################################################################################
+#SOFT OOPS
+
+elif branch == 3 and lab == 1 :
+
+    time.sleep(3)
+
+    driver.find_element_by_xpath("//div[@class = 'row']//div[@class = 'col s12 m6 l4 course-data']//div[@class = 'card-content white-text']//span[text()='CPP']").click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabswecppds/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
 
 
-#http://ulc.srmuniv.ac.in/mathslab1/login/student/code/mathslab/mathslab.code.php?id=1&value=80
+#############################################################################################################################################
+#SOFT DS
 
+elif branch == 3 and lab == 2 :
 
-#Quest=driver.find_element_by_id('__rgraph_tooltip_graphCanvas_74993304-a5e1-4980-bc93-598e02b55466_15')
-#                                 __rgraph_tooltip_graphCanvas_dd29daaa-a4a0-4d9f-a5a4-21e503b9d3fe_18
-#                                 __rgraph_tooltip_graphCanvas_22c779e3-5a92-44f1-ac8e-5efc26e9605d_20
-#Quest.click()
+    time.sleep(3)
 
-#elem.clear()
-#elem.send_keys("face")
-#elem.send_keys(Keys.RETURN)
-#assert "No results found." not in driver.page_source
-#driver.close()
+    driver.find_element_by_xpath("//div[@class = 'row']//div[@class = 'col s12 m6 l4 course-data']//div[@class = 'card-content white-text']//span[text()='CPP']").click()
+
+    time.sleep(5)
+    wait = WebDriverWait(driver, 10)
+    wait.until(EC.presence_of_element_located((By.ID, 'graphCanvas_rgraph_domtext_wrapper')))
+    time.sleep(3)
+
+    for v in range(0,99):
+            v=str(v)
+            driver.get('http://ulc.srmuniv.ac.in/elabswecppds/login/student/code/cpp/cpp.code.php?id=1&value='+v)
+            time.sleep(2)
+            wait.until(EC.presence_of_element_located((By.ID, 'evaluateButton')))
+            time.sleep(1)
+            #driver.find_element_by_id("evaluateButton").click()
+            #driver.find_element_by_id("printMsg").click()
+            #t=driver.find_element_by_id("resultMsg")
+            #driver.get('http://ulc.srmuniv.ac.in/mathslab'+a+'/login/student/code/getReport.php')
+            #time.sleep(1)
+    time.sleep(5)
